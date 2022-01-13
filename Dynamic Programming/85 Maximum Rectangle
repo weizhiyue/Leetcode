@@ -1,0 +1,37 @@
+class Solution(object):
+    def maximalRectangle(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        ### dp[i][j]: the maximum length of the subarray that only contains "1" in the i-th row and ends at the j-th row.
+        # dp[i][j] = dp[i][j-1] + 1 (if matrix[i][j] == 1)
+        # dp[i][j] = 0 (if matrix[i][j] == 0)
+        # if j == 0, dp[i][j] = 0 or 1
+        ### Special case
+        if len(matrix) == 0:
+            return 0
+        ### General case
+        dp = [[0]*len(matrix[0]) for rows in matrix]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == "0":
+                    dp[i][j] = 0
+                else:
+                    if j == 0:
+                        dp[i][j] = 1
+                    else:
+                        dp[i][j] = dp[i][j-1] + 1
+        ### Find our result
+        # Fix the row, scan all the columns
+        # Fix the column, scan all the rows that below the current row, find the maximal rectangle with the right boundary as the current column.
+        ans = 0
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                max_len = dp[i][j]
+                for k in range(i, len(matrix), 1):
+                    max_len = min(max_len, dp[k][j])
+                    if max_len == 0:
+                        break
+                    ans = max(ans, max_len * (k - i + 1))
+        return ans
