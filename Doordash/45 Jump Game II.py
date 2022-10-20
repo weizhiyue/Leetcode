@@ -1,3 +1,4 @@
+### Greedy Algorithm
 class Solution(object):
     def jump(self, nums):
         """
@@ -20,3 +21,28 @@ class Solution(object):
                 current_end = farthest
         
         return jump_step
+
+ 
+
+### DP
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # Dynamic Programming
+        # Initialization
+        dp = [float("inf") for i in range(len(nums))]
+        dp[0] = 0
+        
+        # Iterate through each point in the nums array
+        for i in range(len(nums)):
+            max_step = nums[i]
+            for j in range(1, max_step + 1, 1):
+                if (i + j) >= len(nums):
+                    break
+                dp[i + j] = min(dp[i + j], dp[i] + 1)
+        
+        # return
+        return dp[len(nums) - 1]
