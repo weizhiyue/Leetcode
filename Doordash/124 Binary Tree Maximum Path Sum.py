@@ -34,3 +34,7 @@ class Solution(object):
         
         # return back to the previous phase (not include both children)
         return node.val + max(left_max_gain, right_max_gain)
+
+    
+    
+ ### https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/603423/Python-Recursion-stack-thinking-process-diagram
