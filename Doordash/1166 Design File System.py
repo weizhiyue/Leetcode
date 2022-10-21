@@ -1,11 +1,10 @@
+### Sol1: Hashmap
 class FileSystem(object):
-
     def __init__(self):
         # A path is a node of a tree
         # Use hash table to store the valid paths along with their values
         self.path_dict = {}
         
-
     def createPath(self, path, value):
         """
         :type path: str
